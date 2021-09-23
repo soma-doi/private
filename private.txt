@@ -1,1 +1,7 @@
-first commit.
+This file is managed by Git.
+This repository was created on November 5, 2020.
+
+HTTPS
+  https://github.com/soma-doi/private.git
+SSH
+  git@github.com:soma-doi/private.git
