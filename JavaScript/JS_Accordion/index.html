@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width" id="viewport">
+  <title>タイトル</title>
+
+  <link href="./css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <article class="art_top">
+
+    <div class="outline">
+      <p class="outline_tit">目次</p>
+      <ol id="outLine"></ol>
+      <button id="opnBtn" class="outline_btn">続きを見る</button>
+    </div>
+
+    <h2><span>H2タグです。</span></h2>
+    <h2><span>H2タグです。</span></h2>
+    <h2><span>H2タグです。</span></h2>
+    <h2><span>H2タグです。</span></h2>
+    <h2><span>H2タグです。</span></h2>
+    <h2><span>H2タグです。</span></h2>
+    
+  </article>
+
+  <!-- アコーディオン -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const outLine     = document.getElementById('outLine');
+      const outLineH    = outLine.offsetHeight;
+      const outLineList = outLine.children;
+      const outLineLen  = outLineList.length;
+      const opnBtn      = document.getElementById('opnBtn');
+      let   isOpn       = false;
+      let   heightSum   = 0;
+
+      for (let i = 0; i < 4; i++) {
+        let marginTop = parseInt(getComputedStyle(outLineList.item(i)).getPropertyValue("margin-top"));
+        let marginBtm = parseInt(getComputedStyle(outLineList.item(i)).getPropertyValue("margin-bottom"));
+        heightSum += outLineList.item(i).offsetHeight + marginTop + marginBtm;
+        if (i == outLineLen - 1) {
+          opnBtn.style.display = "none";
+          break;
+        }
+      }
+      outLine.style.height = heightSum + 'px';
+
+      opnBtn.addEventListener('click', function () {
+        if (isOpn) {
+          outLine.style.height = heightSum + 'px';
+          opnBtn.textContent = "続きを見る";
+          isOpn = false;
+        } else {
+          outLine.style.height = outLineH + 'px';
+          opnBtn.textContent = "閉じる";
+          isOpn = true;
+        }
+      });
+    });
+  </script>
+
+  <!-- 目次生成 -->
+  <script>
+    const h2      = document.getElementsByTagName("h2");
+    const outLine = document.getElementById("outLine");
+    for (let i = 0; i < h2.length; i++) {
+      let eleLi = document.createElement("li");
+      let eleA = document.createElement("a");
+      h2[i].firstElementChild.setAttribute("id", i);
+      eleLi.setAttribute("class", "outLine_item");
+      eleA.textContent = h2[i].textContent;
+      eleA.href = "#" + i;
+      eleLi.appendChild(eleA);
+      outLine.appendChild(eleLi);
+    }
+  </script>
+
+</body>
+
+</html>
